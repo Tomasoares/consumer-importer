@@ -4,7 +4,7 @@ type FileRow struct {
 	CPF string
 	Private string
 	Incompleto string
-	DataUtlimaCompra string
+	DataUltimaCompra string
 	TicketMedio string
 	TicketUltimaCompra string
 	LojaMaisFrequente string
