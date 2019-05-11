@@ -1,7 +1,7 @@
 package filereader
 
 import (
-	"consumer-importer/consumer-importer/util"
+	"consumer-importer/util"
 )
 
 func FormatFile(row string) util.FileRow {
