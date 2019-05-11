@@ -25,3 +25,14 @@ func TestTrim(t *testing.T) {
 		t.Errorf("The string still has blank spaces: " + result)
 	}
 }
+
+func TestUpperCase(t *testing.T) {
+	provided := "ABCDEFGHIJKLMNOPQRSTUVXYZ"
+	expected := "abcdefghijklmnopqrstuvxyz"
+
+	result := CleanUpString(provided)
+
+	if result != expected {
+		t.Errorf("The string still has uppercase letters: " + result)
+	}
+}

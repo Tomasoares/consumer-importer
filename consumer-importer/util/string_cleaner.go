@@ -20,5 +20,6 @@ func removeDiatrics(str string) string {
 
 func CleanUpString(str string) string {
 	noDiatrics := removeDiatrics(str)
-	return strings.Trim(noDiatrics, " ")
+	noDiatricsLowerCase := strings.ToLower(noDiatrics)
+	return strings.Trim(noDiatricsLowerCase, " ")
 }
