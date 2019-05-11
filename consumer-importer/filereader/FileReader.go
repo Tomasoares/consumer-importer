@@ -33,9 +33,9 @@ func (f *FileReader) openFile() error {
 func (f *FileReader) CloseFile() error {
 	if f.file != nil {
 		return f.file.Close()
-	} else {
-		return errors.New("no file to close")
 	}
+
+	return errors.New("no file to close")
 }
 
 func (f *FileReader) ReadLine() string {
