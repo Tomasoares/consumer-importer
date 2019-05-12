@@ -7,3 +7,6 @@ services:
       - POSTGRES_PASSWORD=postgrespassword
       - POSTGRES_USER=user
       - POSTGRES_DB=consumer_importer
+      - POSTGRES_PORT=5432
+    ports:
+      - '5000:5432'

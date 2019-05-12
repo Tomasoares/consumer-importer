@@ -1,8 +1,8 @@
 package filereader
 
 import (
+	"consumer-importer/file-reader/util"
 	"consumer-importer/model"
-	"consumer-importer/util"
 	"errors"
 	"strconv"
 	"strings"

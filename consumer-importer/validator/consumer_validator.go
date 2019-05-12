@@ -17,7 +17,7 @@ func ValidateConsumer(consumer *model.Consumer) error {
 	}
 
 	if consumer.LojaUltimaCompra != nil && !ValidateCNPJ(*consumer.LojaUltimaCompra) {
-		return errors.New("Invalid CNPJ on LojaUltimaCompra")
+		return errors.New("Invalid CNPJ on LojaUltimaCompra field")
 	}
 
 	return nil
