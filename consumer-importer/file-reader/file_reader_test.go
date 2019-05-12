@@ -4,9 +4,11 @@ import (
 	"testing"
 )
 
+var filename = "../file-repository/base_teste.txt"
+
 func TestReadFileSuccessfully(t *testing.T) {
 	fileReader := FileReader{
-		fileName: "../file/base_teste.txt",
+		fileName: filename,
 	}
 
 	err := fileReader.Initialize()
@@ -18,7 +20,7 @@ func TestReadFileSuccessfully(t *testing.T) {
 
 func TestCloseUnopenedFileSuccessfully(t *testing.T) {
 	fileReader := FileReader{
-		fileName: "../file/base_teste.txt",
+		fileName: filename,
 	}
 
 	err := fileReader.CloseFile()
@@ -30,7 +32,7 @@ func TestCloseUnopenedFileSuccessfully(t *testing.T) {
 
 func TestOpenCloseFileSuccessfully(t *testing.T) {
 	fileReader := FileReader{
-		fileName: "../file/base_teste.txt",
+		fileName: filename,
 	}
 
 	fileReader.Initialize()
@@ -43,7 +45,7 @@ func TestOpenCloseFileSuccessfully(t *testing.T) {
 
 func TestReadFirstLineOfFile(t *testing.T) {
 	fileReader := FileReader{
-		fileName: "../file/base_teste.txt",
+		fileName: filename,
 	}
 
 	fileReader.Initialize()
