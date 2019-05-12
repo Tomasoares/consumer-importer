@@ -4,6 +4,8 @@ import "time"
 
 //Consumer formatted struct with data related to a Consumer
 type Consumer struct {
+	ID                 int64
+	IDFile             int
 	CPF                *string
 	Private            bool
 	Incompleto         bool

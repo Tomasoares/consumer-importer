@@ -1,49 +1,21 @@
 package service
 
 import (
+	"consumer-importer/model"
 	"consumer-importer/service/util"
-	"database/sql"
-	"fmt"
-
-	//opens connection to postgres database
-	_ "github.com/lib/pq"
 )
 
+// ConsumerService service responsible for managing Consumer data to the postgres database
 type ConsumerService struct {
-	props util.DbProperties
+	Props *util.DbProperties
 }
 
-func (c *ConsumerService) openConnection() *sql.DB {
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
-		c.props.Host, c.props.Port, c.props.User, c.props.Password, c.props.Dbname)
+//Save store a Consumer object into Consumer Database Table
+func (c *ConsumerService) Save(dto *model.Consumer) {
+	db := util.OpenConnection(c.Props)
+	defer util.CloseConnection(db)
 
-	db, err := sql.Open("postgres", psqlInfo)
-
-	if err != nil {
-		panic(err)
-	}
-
-	err = db.Ping()
-	if err != nil {
-		panic(err)
-	}
-
-	return db
-}
-
-func (c *ConsumerService) closeConnection(db *sql.DB) {
-	err := db.Close()
-
-	if err != nil {
-		panic(err)
-	}
-}
-
-func (c *ConsumerService) InitializeDBTables() {
-	db := c.openConnection()
-	defer c.closeConnection(db)
-
-	sqlStatement := `CREATE TABLE IF NOT EXISTS test ( id SERIAL PRIMARY KEY );`
+	sqlStatement := ``
 
 	_, err := db.Exec(sqlStatement)
 
