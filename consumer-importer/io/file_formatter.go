@@ -1,7 +1,7 @@
-package filereader
+package io
 
 import (
-	"consumer-importer/file-reader/util"
+	"consumer-importer/io/util"
 	"consumer-importer/model"
 	"errors"
 	"strconv"

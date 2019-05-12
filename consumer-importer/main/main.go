@@ -1,14 +1,15 @@
 package main
 
 import (
+	"consumer-importer/io"
 	"fmt"
-	"consumer-importer/model"
 )
 
 func main() {
-	c := model.Consumer{
-		CPF: "12387"
-	};
+	fileNames := io.GetFilesFromDirectory("../file-repository/")
 
-	fmt.Println();
+	for _, file := range fileNames {
+		fmt.Println(file)
+	}
+
 }

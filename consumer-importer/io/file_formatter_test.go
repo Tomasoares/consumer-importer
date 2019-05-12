@@ -1,7 +1,10 @@
-package filereader
+package io
 
 import (
+	"consumer-importer/io/util"
+	"consumer-importer/model"
 	"fmt"
+	"reflect"
 	"testing"
 	"time"
 )
@@ -129,5 +132,41 @@ func TestFloatParserNull(t *testing.T) {
 
 	if result != nil {
 		t.Errorf("incorret parsing, expected: 'nil', received: '" + fmt.Sprintf("%f", *result) + "'")
+	}
+}
+
+func TestToConsumer(t *testing.T) {
+	sample := util.FileRow{
+		CPF:                "866.315.609-00     ",
+		DataUltimaCompra:   "2010-01-13            ",
+		Incompleto:         "1           ",
+		LojaMaisFrequente:  "79.379.491/0001-83  ",
+		LojaUltimaCompra:   "79.379.491/0001-83",
+		Private:            "1           ",
+		TicketMedio:        "335,38                  ",
+		TicketUltimaCompra: "335,38                ",
+	}
+
+	cpf := "86631560900"
+	lojaMaisFrequente := "79379491000183"
+	lojaUltimaCompra := "79379491000183"
+	ticketMedio := 335.38
+	ticketUltimaCompra := 335.38
+
+	expected := model.Consumer{
+		CPF:                &cpf,
+		DataUltimaCompra:   time.Date(2010, 1, 13, 0, 0, 0, 0, time.UTC),
+		Incompleto:         true,
+		LojaMaisFrequente:  &lojaMaisFrequente,
+		LojaUltimaCompra:   &lojaUltimaCompra,
+		Private:            true,
+		TicketMedio:        &ticketMedio,
+		TicketUltimaCompra: &ticketUltimaCompra,
+	}
+
+	result := ToConsumer(sample)
+
+	if !reflect.DeepEqual(expected, result) {
+		t.Errorf("files are not the same!")
 	}
 }
