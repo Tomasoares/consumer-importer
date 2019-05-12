@@ -38,7 +38,7 @@ func (d *DatabaseInitializerService) initializeConsumerTable(db *sql.DB) {
 	sqlStatement := `CREATE TABLE IF NOT EXISTS consumer ( 
 		id 						SERIAL PRIMARY KEY,
 		id_file					int,
-		cpf 					varchar(11),
+		cpf 					varchar(11) not null,
 		private 				bool,
 		incompleto 				bool,
 		data_ultima_compra 		date,
@@ -46,6 +46,8 @@ func (d *DatabaseInitializerService) initializeConsumerTable(db *sql.DB) {
 		ticket_ultima_compra 	DOUBLE PRECISION,
 		loja_mais_frequente		varchar(14),
 		loja_ultima_compra		varchar(14),
+		valid					bool,
+		validation_message		varchar(255),
 		constraint fk_consumer_file foreign key (id_file) references file (id)
 	);`
 

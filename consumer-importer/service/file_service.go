@@ -26,7 +26,7 @@ func (f *FileService) Save(dto *model.File) error {
 	return db.QueryRow(sqlStatement, dto.ImportDate, dto.Name, dto.Successful).Scan(&dto.ID)
 }
 
-//Find a File register into the database
+//Find find a File register into the database
 func (f *FileService) Find(ID int64) (*model.File, error) {
 	db := util.OpenConnection(f.Props)
 	defer util.CloseConnection(db)
@@ -54,7 +54,7 @@ func (f *FileService) Find(ID int64) (*model.File, error) {
 	return &file, nil
 }
 
-//Delete delete from database a file
+//Delete delete a file from database
 func (f *FileService) Delete(ID int64) (bool, error) {
 	db := util.OpenConnection(f.Props)
 	defer util.CloseConnection(db)

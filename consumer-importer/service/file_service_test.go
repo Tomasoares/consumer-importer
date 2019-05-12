@@ -2,7 +2,6 @@ package service
 
 import (
 	"consumer-importer/model"
-	"reflect"
 	"testing"
 	"time"
 )
@@ -19,7 +18,6 @@ func TestStoreFile(t *testing.T) {
 	}
 
 	err := fileService.Save(&file)
-	defer fileService.Delete(*file.ID)
 
 	if file.ID == nil {
 		t.Errorf("Error inserting a File: ID shouldn't be nil")
@@ -29,6 +27,7 @@ func TestStoreFile(t *testing.T) {
 		t.Errorf("File saving file: " + err.Error())
 	}
 
+	fileService.Delete(*file.ID)
 }
 
 func TestDeleteFile(t *testing.T) {
@@ -51,11 +50,9 @@ func TestDeleteFile(t *testing.T) {
 }
 
 func TestFindFile(t *testing.T) {
-	location := time.Location{}
-
 	file := model.File{
 		Name:       "test",
-		ImportDate: time.Date(2019, 5, 12, 0, 0, 0, 0, &location),
+		ImportDate: time.Date(2019, 5, 12, 0, 0, 0, 0, time.FixedZone("", 0)),
 		Successful: false,
 	}
 
@@ -71,7 +68,7 @@ func TestFindFile(t *testing.T) {
 		t.Errorf("File hasn't been found")
 	}
 
-	if !reflect.DeepEqual(file, searchedFile) {
+	if file.String() != searchedFile.String() {
 		t.Errorf("Searched file is different from the original: " + file.String() +
 			", searched: " + searchedFile.String())
 	}
