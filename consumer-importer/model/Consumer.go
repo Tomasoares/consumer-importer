@@ -2,6 +2,7 @@ package model
 
 import "time"
 
+//Consumer formatted struct with data related to a Consumer
 type Consumer struct {
 	CPF                *string
 	Private            bool

@@ -18,6 +18,7 @@ func removeDiatrics(str string) string {
 	return result
 }
 
+//CleanUpString remove diatrics, turn into lower case and remove blank spaces from a string
 func CleanUpString(str string) string {
 	noDiatrics := removeDiatrics(str)
 	noDiatricsLowerCase := strings.ToLower(noDiatrics)

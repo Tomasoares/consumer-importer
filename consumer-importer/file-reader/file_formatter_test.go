@@ -42,7 +42,7 @@ func ValidateAttribute(expected, received, fieldName string, t *testing.T) {
 
 func TestStringParserCPF(t *testing.T) {
 	sample := "866.315.609-00     "
-	expected := "866.315.609-00"
+	expected := "86631560900"
 	result := parseString(sample)
 
 	if *result != expected {
@@ -52,7 +52,7 @@ func TestStringParserCPF(t *testing.T) {
 
 func TestStringParserCNPJ(t *testing.T) {
 	sample := "79.379.491/0001-83  "
-	expected := "79.379.491/0001-83"
+	expected := "79379491000183"
 	result := parseString(sample)
 
 	if *result != expected {

@@ -9,19 +9,21 @@ import (
 	"time"
 )
 
+//FormatFile split the row string into each field of a FileRow instance
 func FormatFile(row string) util.FileRow {
 	return util.FileRow{
-		CPF:                row[:util.CPF_END],
-		Private:            row[util.CPF_END:util.PRIVATE_END],
-		Incompleto:         row[util.PRIVATE_END:util.INCOMPLETO_END],
-		DataUltimaCompra:   row[util.INCOMPLETO_END:util.DATA_ULTIMA_COMPRA_END],
-		TicketMedio:        row[util.DATA_ULTIMA_COMPRA_END:util.TICKET_MEDIO_END],
-		TicketUltimaCompra: row[util.TICKET_MEDIO_END:util.TICKET_ULTIMA_COMPRA_END],
-		LojaMaisFrequente:  row[util.TICKET_ULTIMA_COMPRA_END:util.LOJA_MAIS_FREQUENTE_END],
-		LojaUltimaCompra:   row[util.LOJA_MAIS_FREQUENTE_END:],
+		CPF:                row[:util.CPFEnd],
+		Private:            row[util.CPFEnd:util.PrivateEnd],
+		Incompleto:         row[util.PrivateEnd:util.IncompletoEnd],
+		DataUltimaCompra:   row[util.IncompletoEnd:util.DataUltimaCompraEnd],
+		TicketMedio:        row[util.DataUltimaCompraEnd:util.TicketMedioEnd],
+		TicketUltimaCompra: row[util.TicketMedioEnd:util.TicketUltimaCompraEnd],
+		LojaMaisFrequente:  row[util.TicketUltimaCompraEnd:util.LojaMaisFrequenteEnd],
+		LojaUltimaCompra:   row[util.LojaMaisFrequenteEnd:],
 	}
 }
 
+//ToConsumer converts the FileRow instance into a Consumer with formatted data
 func ToConsumer(row util.FileRow) model.Consumer {
 	private, err := parseBoolean(row.Private)
 
@@ -54,7 +56,11 @@ func parseString(str string) *string {
 		return nil
 	}
 
-	return &cleanedStr
+	removedDots := strings.ReplaceAll(cleanedStr, ".", "")
+	removedDashes := strings.ReplaceAll(removedDots, "-", "")
+	finalStr := strings.ReplaceAll(removedDashes, "/", "")
+
+	return &finalStr
 }
 
 func parseBoolean(str string) (bool, error) {
