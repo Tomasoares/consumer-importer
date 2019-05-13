@@ -9,7 +9,7 @@ type Consumer struct {
 	CPF                *string
 	Private            bool
 	Incompleto         bool
-	DataUltimaCompra   time.Time
+	DataUltimaCompra   *time.Time
 	TicketMedio        *float64
 	TicketUltimaCompra *float64
 	LojaMaisFrequente  *string

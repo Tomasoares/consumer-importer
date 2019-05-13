@@ -84,16 +84,16 @@ func parseBoolean(str string) (bool, error) {
 	return false, errors.New("invalid boolean type")
 }
 
-func parseDate(str string) time.Time {
+func parseDate(str string) *time.Time {
 	cleanedStr := util.CleanUpString(str)
 
 	if strings.ToLower(cleanedStr) == "null" {
-		return time.Time{}
+		return nil
 	}
 
 	time, _ := time.Parse("2006-01-02", cleanedStr)
 
-	return time
+	return &time
 }
 
 func parseFloat(str string) *float64 {

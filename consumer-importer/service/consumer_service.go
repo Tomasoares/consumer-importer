@@ -4,7 +4,6 @@ import (
 	"consumer-importer/model"
 	"consumer-importer/service/util"
 	"consumer-importer/validator"
-	"time"
 )
 
 // ConsumerService service responsible for managing Consumer data to the postgres database
@@ -22,13 +21,6 @@ func (c *ConsumerService) Save(dto *model.Consumer) error {
 		validationMessage = &strErr
 	} else {
 		validationMessage = nil
-	}
-
-	var dataUltimaCompra *time.Time
-	if dto.DataUltimaCompra.Equal(time.Time{}) {
-		dataUltimaCompra = &dto.DataUltimaCompra
-	} else {
-		dataUltimaCompra = nil
 	}
 
 	db := util.OpenConnection(c.Props)
@@ -54,7 +46,7 @@ func (c *ConsumerService) Save(dto *model.Consumer) error {
 		dto.CPF,
 		dto.Private,
 		dto.Incompleto,
-		dataUltimaCompra,
+		dto.DataUltimaCompra,
 		dto.TicketUltimaCompra,
 		dto.TicketMedio,
 		dto.LojaMaisFrequente,

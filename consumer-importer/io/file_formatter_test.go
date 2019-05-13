@@ -110,11 +110,10 @@ func TestStringParserDate(t *testing.T) {
 }
 func TestStringParserDateNull(t *testing.T) {
 	sample := "NULL                "
-	expected := time.Time{}
 	result := parseDate(sample)
 
-	if !result.Equal(expected) {
-		t.Errorf("incorret parsing, expected: '" + expected.String() + "', received: '" + result.String() + "'")
+	if result != nil {
+		t.Errorf("incorret parsing, expected: 'nil', received: '" + result.String() + "'")
 	}
 }
 func TestFloatParser(t *testing.T) {
@@ -152,10 +151,11 @@ func TestToConsumer(t *testing.T) {
 	lojaUltimaCompra := "79379491000183"
 	ticketMedio := 335.38
 	ticketUltimaCompra := 335.38
+	dataUltimaCompra := time.Date(2010, 1, 13, 0, 0, 0, 0, time.UTC)
 
 	expected := model.Consumer{
 		CPF:                &cpf,
-		DataUltimaCompra:   time.Date(2010, 1, 13, 0, 0, 0, 0, time.UTC),
+		DataUltimaCompra:   &dataUltimaCompra,
 		Incompleto:         true,
 		LojaMaisFrequente:  &lojaMaisFrequente,
 		LojaUltimaCompra:   &lojaUltimaCompra,
