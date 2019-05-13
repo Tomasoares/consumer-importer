@@ -34,6 +34,29 @@ the data related to the consumer in the imported file, with 3 additional columns
 - validation_message: The validation error message, in case the registry isn't valid.
 
 -------------------
+PROJECT STRUCTURE:
+-------------------
+
+The project is divided in 7 packages:
+
+- docker-compose: contains all the docker-compose files to start the service and the postgres database.
+
+- file-repository: it's the default folder where the service will check for files to import.
+
+- io: contains all the .go files with functions and structs related to file reading and converting operations.
+
+- main: contains the main function which is where the app is started and the consumer-importer algorithm which is
+the main flow of the app.
+
+- model: contains the CONSUMER and FILE structs, which communicates with the services structs to save or load data
+from the database.
+
+- service: contains the services structures for CONSUMER and FILE, which are responsible to do CRUD operations at
+the database.
+
+- validator: contains the validators functions necessary to validate the Consumer CPF and CNPJ data.
+
+-------------------
 FUTURE IMPLEMENTATIONS:
 -------------------
 
