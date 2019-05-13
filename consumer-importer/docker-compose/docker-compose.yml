@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  postgres:
+    extends:
+      file: postgres.yml
+      service: postgres
+  consumer-importer:
+    extends:
+      file: consumer-importer.yml
+      service: app

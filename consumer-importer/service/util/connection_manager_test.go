@@ -7,7 +7,7 @@ import (
 func TestDBConnection(t *testing.T) {
 	dbProperties := DbProperties{
 		Host:     "localhost",
-		Port:     5000,
+		Port:     "5000",
 		User:     "user",
 		Password: "postgrespassword",
 		Dbname:   "consumer_importer",

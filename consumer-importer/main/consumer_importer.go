@@ -4,29 +4,20 @@ import (
 	"consumer-importer/io"
 	"consumer-importer/model"
 	"consumer-importer/service"
-	"consumer-importer/service/util"
 	"fmt"
 	"time"
 )
 
-var dbProperties = util.DbProperties{
-	Host:     "localhost",
-	Port:     5000,
-	User:     "user",
-	Password: "postgrespassword",
-	Dbname:   "consumer_importer",
-}
-
 var consumerService = service.ConsumerService{Props: &dbProperties}
 var fileService = service.FileService{Props: &dbProperties}
+var dbInitializerService = service.DatabaseInitializerService{Props: &dbProperties}
 
-var directory = "../file-repository/"
 var readFiles = make([]string, 0)
 
 //BeginService starts up the process to read the consumer files and import to a postgres database
 func BeginService() {
 	fmt.Println("Starting Consumer File Importer service...")
-
+	dbInitializerService.InitializeDBTables()
 	for {
 		fmt.Println("Checking for existing files in directory: " + directory)
 		filenames := io.GetFilesFromDirectory(directory)
@@ -78,7 +69,6 @@ func doImportProcess(filenames []string) {
 		}
 
 		path := directory + filename
-
 		fileReader := io.FileReader{
 			FilePath: path,
 		}
@@ -90,19 +80,23 @@ func doImportProcess(filenames []string) {
 
 		for fileReader.Next() {
 			line := fileReader.ReadLine()
-			fmt.Println("Reading line: " + line)
-
-			if io.IsHeader(line) {
-				continue
-			}
-
-			consumer := io.Format(line)
-			consumerService.Save(&consumer)
+			processFileLine(line)
 		}
 
 		fileService.UpdateFileAsSuccessful(*savedFile.ID)
 		fmt.Println("File " + filename + " has been successfully read!")
 	}
+}
+
+func processFileLine(line string) {
+	fmt.Println("Reading line: " + line)
+
+	if io.IsHeader(line) {
+		return
+	}
+
+	consumer := io.Format(line)
+	consumerService.Save(&consumer)
 }
 
 func storeFile(filename string) *model.File {

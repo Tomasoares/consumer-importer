@@ -36,7 +36,7 @@ func TestStoreConsumer(t *testing.T) {
 	}
 
 	if err != nil {
-		t.Errorf("File saving a consumer: " + err.Error())
+		t.Errorf("Error saving a consumer: " + err.Error())
 	}
 
 	consumerService.Delete(*consumer.ID)

@@ -1,0 +1,17 @@
+version: '3'
+services:
+
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - POSTGRES_PASSWORD=postgrespassword
+      - POSTGRES_USER=user
+      - POSTGRES_DB=consumer_importer
+      - POSTGRES_PORT=5432
+    ports:
+      - '5000:5432'
+    volumes:
+      - "dbdata:/var/lib/postgresql/data"
+
+volumes:
+    dbdata:
