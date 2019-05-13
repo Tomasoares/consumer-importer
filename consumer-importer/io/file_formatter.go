@@ -9,8 +9,18 @@ import (
 	"time"
 )
 
-//FormatFile split the row string into each field of a FileRow instance
-func FormatFile(row string) util.FileRow {
+//IsHeader checks if the line is a header type
+func IsHeader(line string) bool {
+	return len(line) == util.HeaderSize
+}
+
+//Format format a string line of the imported file to a Consumer object
+func Format(line string) model.Consumer {
+	row := formatFile(line)
+	return toConsumer(row)
+}
+
+func formatFile(row string) util.FileRow {
 	return util.FileRow{
 		CPF:                row[:util.CPFEnd],
 		Private:            row[util.CPFEnd:util.PrivateEnd],
@@ -23,8 +33,7 @@ func FormatFile(row string) util.FileRow {
 	}
 }
 
-//ToConsumer converts the FileRow instance into a Consumer with formatted data
-func ToConsumer(row util.FileRow) model.Consumer {
+func toConsumer(row util.FileRow) model.Consumer {
 	private, err := parseBoolean(row.Private)
 
 	if err != nil {

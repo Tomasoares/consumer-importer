@@ -8,7 +8,7 @@ import (
 
 //FileReader struct responsible for reading a file
 type FileReader struct {
-	fileName string
+	FilePath string
 	file     *os.File
 	scanner  *bufio.Scanner
 }
@@ -28,7 +28,7 @@ func (f *FileReader) Initialize() error {
 
 func (f *FileReader) openFile() error {
 	var err error
-	f.file, err = os.Open(f.fileName)
+	f.file, err = os.Open(f.FilePath)
 	return err
 }
 

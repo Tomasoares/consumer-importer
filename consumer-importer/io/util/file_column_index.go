@@ -2,7 +2,7 @@ package util
 
 const (
 	//HeaderSize size of the header of the file layout
-	HeaderSize = 153
+	HeaderSize = 157
 
 	//CPFEnd latest index of CPF column in the file
 	CPFEnd = 19

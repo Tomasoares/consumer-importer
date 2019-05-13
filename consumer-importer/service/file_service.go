@@ -67,3 +67,42 @@ func (f *FileService) Delete(ID int64) (bool, error) {
 
 	return rowsAffected == 1, err
 }
+
+//UpdateFileAsSuccessful update the target tile as successful in the database
+func (f *FileService) UpdateFileAsSuccessful(ID int64) (bool, error) {
+	db := util.OpenConnection(f.Props)
+	defer util.CloseConnection(db)
+
+	sqlStatement := `UPDATE file
+		set successful = true
+		WHERE id = $1`
+
+	result, err := db.Exec(sqlStatement, ID)
+	rowsAffected, _ := result.RowsAffected()
+
+	return rowsAffected == 1, err
+}
+
+//IsFileAlreadyRead check if the filename has already been read
+func (f *FileService) IsFileAlreadyRead(filename string) (bool, error) {
+	db := util.OpenConnection(f.Props)
+	defer util.CloseConnection(db)
+
+	sqlStatement := `select
+		count(*)
+	from
+		file
+	where
+		name = $1;`
+
+	row := db.QueryRow(sqlStatement, filename)
+
+	var count int
+	err := row.Scan(&count)
+
+	if err != nil {
+		return false, err
+	}
+
+	return count > 0, nil
+}

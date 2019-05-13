@@ -73,3 +73,43 @@ func TestFindFile(t *testing.T) {
 			", searched: " + searchedFile.String())
 	}
 }
+
+func TestUpdateFileAsSuccessful(t *testing.T) {
+	file := model.File{
+		Name:       "test",
+		ImportDate: time.Date(2019, 5, 12, 0, 0, 0, 0, time.FixedZone("", 0)),
+		Successful: false,
+	}
+
+	fileService.Save(&file)
+	defer fileService.Delete(*file.ID)
+	success, err := fileService.UpdateFileAsSuccessful(*file.ID)
+
+	if err != nil {
+		t.Errorf("Error updating file: " + err.Error())
+	}
+
+	if !success {
+		t.Errorf("File hasn't been updated")
+	}
+}
+
+func TestIsFileAlreadyBeenRead(t *testing.T) {
+	file := model.File{
+		Name:       "test",
+		ImportDate: time.Date(2019, 5, 12, 0, 0, 0, 0, time.FixedZone("", 0)),
+		Successful: true,
+	}
+
+	fileService.Save(&file)
+	defer fileService.Delete(*file.ID)
+	success, err := fileService.IsFileAlreadyRead(file.Name)
+
+	if err != nil {
+		t.Errorf("Error trying to invoke isFileAlreadyRead: " + err.Error())
+	}
+
+	if !success {
+		t.Errorf("File should've been read")
+	}
+}

@@ -14,7 +14,7 @@ type ConsumerService struct {
 //Save store a Consumer object into Consumer Database Table
 func (c *ConsumerService) Save(dto *model.Consumer) error {
 	err := validator.ValidateConsumer(dto)
-	valid := err != nil
+	valid := err == nil
 
 	var validationMessage *string
 

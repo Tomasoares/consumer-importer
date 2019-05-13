@@ -15,7 +15,7 @@ func GetFilesFromDirectory(directory string) []string {
 	filesNames := make([]string, len(files))
 
 	for i, f := range files {
-		filesNames[i] = directory + f.Name()
+		filesNames[i] = f.Name()
 	}
 
 	return filesNames
