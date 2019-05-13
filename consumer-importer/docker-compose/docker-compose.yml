@@ -1,11 +1,22 @@
-version: '3'
+version: '2'
 
 services:
-  postgres:
+  postgresdb:
     extends:
       file: postgres.yml
-      service: postgres
-  consumer-importer:
+      service: postgresdb
+    networks:
+      - "consumer-importer-network"
+
+  app:
     extends:
       file: consumer-importer.yml
       service: app
+    networks:
+      - "consumer-importer-network"
+
+volumes:
+  postgresdata:
+
+networks:
+  consumer-importer-network:

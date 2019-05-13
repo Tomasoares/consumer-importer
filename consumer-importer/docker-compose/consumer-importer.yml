@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 services:
 
   app:
@@ -6,11 +6,11 @@ services:
       dockerfile: Dockerfile
       context: ..
     environment:
-      - PG_PASSWORD=postgrespassword
-      - PG_USER=user
-      - PG_DB=consumer_importer
-      - PG_PORT=5000
-      - PG_HOST=localhost
-      - FILE_REPOSITORY=../file-repository/
+      - PG_PASSWORD=p0stgr3s
+      - PG_USER=pguser
+      - PG_DATABASE=consumer_importer
+      - PG_PORT=5432
+      - PG_HOST=postgresdb
+      - FILE_REPOSITORY=file-repository/
     volumes:
       - "../file-repository:/file-repository"
